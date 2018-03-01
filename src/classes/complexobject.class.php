@@ -214,12 +214,12 @@ class ComplexObject {
         return $this->_structure->validateEntity($this->_data, $only_field_exists);
     }
 
-    public function validate($data = null, $only_field_exists = false){
+    public function validate($data = null, $only_field_exists = false, &$badfields = array()){
         if ($data && is_object($data)) {
             $this->_data = $data;
         }
 
-        return $this->_structure->validateEntity($this->_data, $only_field_exists, true, true);
+        return $this->_structure->validateEntity($this->_data, $only_field_exists, true, true, $badfields);
     }
 
     public function unsetField ($field) {

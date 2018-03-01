@@ -73,3 +73,23 @@ CREATE TABLE IF NOT EXISTS `boaapi_registries` (
   UNIQUE KEY `UK_boaapi_registries_uuid` (`uuid`)
 ) DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `boaapi_tracers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `registry_id` int(10) unsigned NOT NULL,
+  `level` tinyint(2) unsigned NOT NULL,
+  `challenge` tinyint(2) unsigned NOT NULL,
+  `duration` int(11) unsigned NOT NULL,
+  `score` decimal(4, 3) unsigned NOT NULL,
+  `win_score` decimal(4, 3) unsigned NOT NULL,
+  `correct_answers` varchar(2047) NOT NULL,
+  `user_answers` varchar(2047) NOT NULL,
+  `answer_at` int(11) unsigned NOT NULL,
+  `created_at` int(11) unsigned NOT NULL,
+  `updated_at` int(11) unsigned NOT NULL,
+  `created_by` int(11) unsigned NOT NULL,
+  `updated_by` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) DEFAULT CHARSET=utf8;
+

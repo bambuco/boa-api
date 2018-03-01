@@ -29,7 +29,12 @@ class EntityStructure {
     private $_attributes = array();
     
     private $_requireds = array();
-    
+
+    const INVALID_VALUE = 'value';
+    const INVALID_REQUIRED = 'required';
+    const INVALID_SIZE = 'size';
+    const INVALID_TYPE = 'type';
+
 
     public function setAttribute($attribute) {
         if($attribute->IsRequired) {
@@ -47,10 +52,11 @@ class EntityStructure {
         return null;
     }
 
-    public function validateEntity ($entity, $only_field_exists = false, $correct_data = false, $correct_structure = false) {
+    public function validateEntity ($entity, $only_field_exists = false, $correct_data = false, $correct_structure = false, &$badfields = array()) {
     
         //All id validations
         if (property_exists($entity, 'id') && $entity->id !== null && (!$entity->id || !is_numeric($entity->id))) {
+            $badfields['id'] = self::INVALID_VALUE;
             return false;
         }
         
@@ -71,6 +77,7 @@ class EntityStructure {
                         $entity->{$attribute->Name} = $attribute->Default;
                     }
                     else {
+                        $badfields[$attribute->Name] = self::INVALID_REQUIRED;
                         return false;
                     }
                 }
@@ -82,6 +89,7 @@ class EntityStructure {
                             $entity->{$attribute->Name} = substr($entity->{$attribute->Name}, 0, $attribute->Length);
                         }
                         else {
+                            $badfields[$attribute->Name] = self::INVALID_SIZE;
                             return false;
                         }
                     }
@@ -94,6 +102,7 @@ class EntityStructure {
                                     $entity->{$attribute->Name} = null;
                                 }
                                 else {
+                                    $badfields[$attribute->Name] = self::INVALID_TYPE;
                                     return false;
                                 }
                             }
@@ -120,6 +129,7 @@ class EntityStructure {
                                 }
                             }
                             else {
+                                $badfields[$attribute->Name] = self::INVALID_VALUE;
                                 return false;
                             }
                         }
@@ -132,6 +142,7 @@ class EntityStructure {
                     $entity->{$attribute->Name} = $attribute->Default;
                 }
                 else {
+                    $badfields[$attribute->Name] = self::INVALID_REQUIRED;
                     return false;
                 }
             }

@@ -1,7 +1,8 @@
 {
     "PublicResources" : [
-        { "Name" : "resources", "Verbs" : ["GET/c", "GET:1/c", "OPTIONS"], "RequireAuth": false },
-        { "Name" : "queries",   "Verbs" : ["GET/c", "OPTIONS"], "RequireAuth": false },
-        { "Name" : "registries",   "Verbs" : ["POST", "OPTIONS"], "RequireAuth": false }
+        { "Name" : "resources",     "Verbs" : ["GET/c", "GET:1/c", "OPTIONS"],  "RequireAuth": false },
+        { "Name" : "queries",       "Verbs" : ["GET/c", "OPTIONS"],             "RequireAuth": false },
+        { "Name" : "registries",    "Verbs" : ["POST", "OPTIONS"],              "RequireAuth": false },
+        { "Name" : "tracers",       "Verbs" : ["POST", "OPTIONS"],              "RequireAuth": false }
      ]
 }

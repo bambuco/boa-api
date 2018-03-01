@@ -1,6 +1,6 @@
 {
     "UriBase" : "<URI_BASE>",
-    "NamespaceUriBase" : "/specifications/",
+    "NamespaceUriBase" : "specifications/",
     "Resources" : ["resources", "queries"],
     "Components" : ["GlobalConfiguration", "ExternalHosting", "RelativeUser", "AppConfiguration"],
     "SessionEnable" : true,

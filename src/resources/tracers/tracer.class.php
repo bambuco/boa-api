@@ -16,22 +16,39 @@
 //
 // The latest code can be found at <https://github.com/boa-project/>.
 
+//Include global dependences
+Restos::using('resources.boacomplexobject');
+
 /**
- * String list from Spanish lang in CyQ app
+ * Class to manage the tracer action
  *
  * @author David Herney <davidherney@gmail.com>
  * @package CyQ.Api
  * @copyright  2018 Congo y Quima Project
- * @version 0.1
+ * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero GPL v3 or later
  */
+class Tracer extends BoAComplexObject {
 
-// Registries.
-$s['badregistryinfo'] = 'La información de registro es inválida';
-$s['badregistryinfopassword'] = 'La clave no corresponde con la información de registro existente';
-$s['registryinfoempty'] = 'La información de registro es obligatoria';
+    public function __construct($id = 0) {
 
-// Tracers.
-$s['badtraceinfo'] = 'La traza es inválida';
-$s['notregistered'] = 'No se encuentra un registro con la información recibida.';
-$s['traceinfoempty'] = 'La traza es obligatoria';
-$s['traceemptyfield'] = 'El campo -{$a}- es requerido';
+        parent::__construct('tracers', $id);
+
+    }
+
+    public static function decipher($traceinfo) {
+
+        $driverdata = Restos::$DefaultRestGeneric->getDriverData("registries");
+
+        $privatekey = file_get_contents($driverdata->Properties->PrivateKeyPath);
+
+        $traceinfo = base64_decode($traceinfo);
+
+        // Decrypt the data using the private key and store the results in $decrypted.
+        if (!openssl_private_decrypt($traceinfo, $decrypted, $privatekey)) {
+            return null;
+        }
+
+        return json_decode($decrypted);
+    }
+
+}

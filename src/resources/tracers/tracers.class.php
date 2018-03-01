@@ -16,23 +16,21 @@
 //
 // The latest code can be found at <https://github.com/boa-project/>.
 
+//Include global dependences
+Restos::using('resources.boacomplexobjectlist');
+
 /**
- * Class to manage the registries mapping
+ * Class to manage the tracers action
  *
  * @author David Herney <davidherney@gmail.com>
  * @package CyQ.Api
  * @copyright  2018 Congo y Quima Project
- * @license    https://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero GPL v3 or later
  */
-class RestMapping_Registries extends RestMapping {
+class Tracers extends BoAComplexObjectList {
 
-    /**
-     * 
-     * Construct
-     * @param object or array $data
-     */
-    public function __construct($data) {
-        parent::__construct($data, "registry", "registries");
+    public function __construct($conditions = null, $order = null, $number = null, $start_on = null) {
+        parent::__construct('tracers', $conditions, $order, $number, $start_on);
     }
 
 }

@@ -18,7 +18,7 @@
  */
 
 /**
- * String list from Spanish lang 
+ * String list from English lang
  *
  * @author David Herney <davidherney@gmail.com>
  * @package Laberinto.WebServices.Restos
@@ -38,6 +38,8 @@ $s['response.401.badcredentials'] = 'Las credenciales de autenticación se encue
 $s['notfound'] = 'El recurso indicado no existe';
 $s['save.baddata'] = 'No se pudo guardar la información porque alguno de los campos tiene un valor inválido';
 $s['emptydata'] = 'No se pudo guardar la información porque no se recibió alguno de los campos obligatorios';
+
+$s['save.baddata.detail'] = 'Los siguientes campos tiene un valor inválido: {$a}';
 
 //Exceptions
 $s['exception.nothandled'] = 'Ocurrió un error inesperado en el servidor';
