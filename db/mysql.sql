@@ -55,3 +55,21 @@ CREATE TABLE IF NOT EXISTS `boaapi_roles_assigned` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_boaapi_roles_assigned_all` (`user_id`, `role`, `context`, `elementid`)
 ) DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `boaapi_registries` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(63) NOT NULL,
+  `password` varchar(127) DEFAULT NULL,
+  `username` varchar(31) DEFAULT NULL,
+  `diplayname` varchar(127) DEFAULT NULL,
+  `token` varchar(127) DEFAULT NULL,
+  `created_at` int(11) unsigned NOT NULL,
+  `updated_at` int(11) unsigned NOT NULL,
+  `created_by` int(11) unsigned NOT NULL,
+  `updated_by` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_boaapi_registries_uuid` (`uuid`)
+) DEFAULT CHARSET=utf8;
+
