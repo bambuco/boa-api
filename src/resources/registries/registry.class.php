@@ -51,16 +51,15 @@ class Registry extends BoAComplexObject {
         return json_decode($decrypted);
     }
 
-    public static function cypher($info) {
+    public static function cypher($info, $password) {
 
         $info = json_encode($info);
 
         $driverdata = Restos::$DefaultRestGeneric->getDriverData("registries");
 
-        $publickey = file_get_contents($driverdata->Properties->PublicKeyPath);
+        // Encrypt the data to $encrypted using the client password.
+        $encrypted = openssl_encrypt($info, $driverdata->Properties->EncryptMethod, $password, OPENSSL_RAW_DATA, base64_decode($driverdata->Properties->IVBase64));
 
-        // Encrypt the data to $encrypted using the public key
-        openssl_public_encrypt($info, $encrypted, $publickey);
         $encrypted = base64_encode($encrypted);
 
         return $encrypted;

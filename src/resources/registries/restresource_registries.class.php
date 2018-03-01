@@ -84,6 +84,8 @@ class RestResource_Registries extends RestResource {
             $data->updated_by = User::$IsUserAuth ? User::id() : 0;
 
             $registry->save($data);
+
+            $cypherpwd = md5($info->password);
         }
         else {
             $data = new stdClass();
@@ -99,9 +101,10 @@ class RestResource_Registries extends RestResource {
             $data->updated_by = User::$IsUserAuth ? User::id() : 0;
 
             $registry->save($data);
+            $cypherpwd = $data->password;
         }
 
-        $token = Registry::cypher($data->token);
+        $token = Registry::cypher($data->token, $cypherpwd);
 
         $res = new stdClass();
         $res->token = $token;
