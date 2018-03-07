@@ -76,8 +76,8 @@ class RestResource_Registries extends RestResource {
                 $data->username = $info->username;
             }
 
-            if ($registry->diplayname != $info->diplayname) {
-                $data->diplayname = $info->diplayname;
+            if ($registry->displayname != $info->displayname) {
+                $data->displayname = $info->displayname;
             }
 
             $data->updated_at = time();
@@ -92,7 +92,7 @@ class RestResource_Registries extends RestResource {
             $data->uuid = $info->uuid;
             $data->password = md5($info->password);
             $data->username = $info->username;
-            $data->diplayname = $info->diplayname;
+            $data->displayname = $info->displayname;
             $data->token = Registry::getNewToken();
 
             $data->created_at = time();

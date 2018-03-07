@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `boaapi_registries` (
   `uuid` varchar(63) NOT NULL,
   `password` varchar(127) DEFAULT NULL,
   `username` varchar(31) DEFAULT NULL,
-  `diplayname` varchar(127) DEFAULT NULL,
+  `displayname` varchar(127) DEFAULT NULL,
   `token` varchar(127) DEFAULT NULL,
   `created_at` int(11) unsigned NOT NULL,
   `updated_at` int(11) unsigned NOT NULL,
