@@ -83,6 +83,8 @@ class RestResource_Registries extends RestResource {
             $data->updated_at = time();
             $data->updated_by = User::$IsUserAuth ? User::id() : 0;
 
+            $current_call = $registry->current_call;
+
             $registry->save($data);
 
             $cypherpwd = md5($info->password);
@@ -94,6 +96,8 @@ class RestResource_Registries extends RestResource {
             $data->username = $info->username;
             $data->displayname = $info->displayname;
             $data->token = Registry::getNewToken();
+            $data->current_call = 1;
+            $current_call = 1;
 
             $data->created_at = time();
             $data->updated_at = $data->created_at;
@@ -108,6 +112,7 @@ class RestResource_Registries extends RestResource {
 
         $res = new stdClass();
         $res->token = $token;
+        $res->current_call = $current_call;
         $mapping = new RestMapping($res);
 
         $this->_restGeneric->RestResponse->Content = $mapping->getMapping($this->_restGeneric->RestResponse->Type);

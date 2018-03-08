@@ -49,9 +49,14 @@ class RestResource_Tracers extends RestResource {
             Restos::throwException(null, RestosLang::get('traceinfoempty', 'cyq'), 400);
         }
 
-        if (!($info = Tracer::decipher($params['traceinfo'])) ||
+        if (!isset($params['securityinfo'])) {
+            Restos::throwException(null, RestosLang::get('securityinfoempty', 'cyq'), 400);
+        }
+
+        if (!($info = Tracer::decipher($params['securityinfo'])) ||
                 !property_exists($info, 'uuid') ||
-                !property_exists($info, 'token')) {
+                !property_exists($info, 'token')||
+                !property_exists($info, 'current_call')) {
             Restos::throwException(null, RestosLang::get('badtraceinfo', 'cyq'), 400);
         }
 
@@ -66,15 +71,21 @@ class RestResource_Tracers extends RestResource {
             Restos::throwException(null, RestosLang::get('notregistered', 'cyq'), 400);
         }
 
+        if ($registry->current_call >= $info->current_call) {
+            Restos::throwException(null, RestosLang::get('currentcall_incorrect', 'cyq'), 400);
+        }
+
         $tracer = new Tracer();
+
+        $trace_info = json_decode($params['traceinfo']);
 
         $data = new stdClass();
         $data->registry_id = $registry->id;
 
         $fields = array('level', 'challenge', 'duration', 'score', 'win_score', 'correct_answers', 'user_answers', 'answer_at');
         foreach($fields as $key) {
-            if (property_exists($info, $key)) {
-                $data->$key = $info->$key;
+            if (property_exists($trace_info, $key)) {
+                $data->$key = $trace_info->$key;
             }
             else {
                 Restos::throwException(null, RestosLang::get('traceemptyfield', 'cyq', $key), 400);
@@ -97,6 +108,11 @@ class RestResource_Tracers extends RestResource {
 
         $res = $tracer->save();
         if($res) {
+            $registry->current_call = $info->current_call + 1;
+            $registry->updated_at = time();
+            $registry->updated_by = User::$IsUserAuth ? User::id() : 0;
+            $registry->save();
+
             $res = new stdClass();
             $res->id = $tracer->id;
             $mapping = new RestMapping($res);

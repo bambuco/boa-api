@@ -34,4 +34,6 @@ $s['registryinfoempty'] = 'La información de registro es obligatoria';
 $s['badtraceinfo'] = 'La traza es inválida';
 $s['notregistered'] = 'No se encuentra un registro con la información recibida.';
 $s['traceinfoempty'] = 'La traza es obligatoria';
+$s['securityinfoempty'] = 'La información de seguridad es obligatoria';
 $s['traceemptyfield'] = 'El campo -{$a}- es requerido';
+$s['currentcall_incorrect'] = 'La llamada actual es inválida o anterior a la última registrada.';
